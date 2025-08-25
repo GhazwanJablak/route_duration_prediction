@@ -36,4 +36,4 @@ def regressor_pipeline(
     X, y, test_size=test_size, random_state=random_state)
     model.fit(X_train, y_train)
     predictions = model.predict(X_test)
-    return y_test, predictions, model
+    return y_test, X_test, predictions, model

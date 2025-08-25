@@ -17,7 +17,7 @@ def main():
     df_master = generate_master_data(df_routes=df_routes, df_stops=df_stops_pro, df_legs=df_legs_pro)
     logger.info(f"Processed data generated sucessfully")
     XGBoostRegressor = GradientBoostingRegressor()
-    y_test, predictions, model = regressor_pipeline(df=df_master, target_col="firstToLastStopActualDurationHours", model=XGBoostRegressor, test_size=0.2)
+    y_test, _, predictions, model = regressor_pipeline(df=df_master, target_col="firstToLastStopActualDurationHours", model=XGBoostRegressor, test_size=0.2)
     logger.info(f"R squared of predictions is {r2_score(y_test, predictions)}")
     logger.info(f"Mean absolute error is {mean_absolute_error(y_test, predictions)}")
 
