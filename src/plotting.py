@@ -2,6 +2,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 
 
 def plot_routes(
@@ -59,4 +60,14 @@ def plot_correlation(
     df[num_col].corr()
     _, ax = plt.subplots()
     sns.heatmap(df[num_col].corr(), annot=True, ax = ax)
+    plt.show()
+
+
+def plot_best_k(
+        intertias:np.ndarray):
+    _,ax = plt.subplots()
+    ax.plot(list(range(1,10)), intertias, 'bx-')
+    ax.set_xlabel('Number of Clusters (k)')
+    ax.set_ylabel('Inertia')
+    ax.set_title('The Elbow Method using Inertia')
     plt.show()

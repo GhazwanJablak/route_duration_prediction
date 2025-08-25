@@ -86,3 +86,30 @@ def process_stops(
     
     grouper.columns = ["routeId", "start_latitude", "end_latitude", "start_longitude", "end_longitude"]
     return grouper
+
+
+def q5(x):
+    """
+    Gets 5th quantile of a series
+    """
+    return x.quantile(0.05)
+
+def q95(x):
+    """
+    Gets 95th quantile of a series
+    """
+    return x.quantile(0.95)
+
+def process_routes(df):
+    """
+    Attach classes and corresponding lower and upper bound actual time to routes data.
+
+    Parameters:
+    df: dataframe containing routes information
+
+    Returns:
+    df: dataframe containing routes, classes and quntile values.
+    """
+    t = df.groupby("Class").agg({"firstToLastStopActualDurationHours":[q5, q95]}).reset_index()
+    t.columns = ["Class", "lowerboundprediction", "upperboundprediction"]
+    return df.merge(t, on="Class"), t
